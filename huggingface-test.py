@@ -1,15 +1,19 @@
-import torch
-from diffusers import StableDiffusionXLImg2ImgPipeline
-from diffusers.utils import load_image
+import requests
+from datetime import datetime
 
-pipe = StableDiffusionXLImg2ImgPipeline.from_pretrained(
-    "stabilityai/stable-diffusion-xl-refiner-1.0", torch_dtype=torch.float16, variant="fp16", use_safetensors=True
-)
-pipe = pipe.to("cuda")
-url = "https://huggingface.co/datasets/patrickvonplaten/images/resolve/main/aa_xl/000000009.png"
+API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
+headers = {"Authorization": "Bearer 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"}
 
-init_image = load_image(url).convert("RGB")
-prompt = "a photo of an astronaut riding a horse on mars"
-image = pipe(prompt, image=init_image).images
+def query(payload):
+	response = requests.post(API_URL, headers=headers, json=payload)
+	return response.content
 
-image.save("out/huggingface-test.png")
+image_bytes = query({
+	"inputs": "Astronaut riding a horse",
+})
+# You can access the image with PIL.Image for example
+import io
+from PIL import Image
+image = Image.open(io.BytesIO(image_bytes))
+
+image.save(f"out/hugging_inference{datetime.now().timestamp()}.png")

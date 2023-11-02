@@ -9,6 +9,7 @@ engine_id = "stable-diffusion-xl-1024-v1-0"
 api_host = os.getenv("API_HOST", "https://api.stability.ai")
 api_key = os.getenv("STABILITY_API_KEY")
 
+
 if api_key is None:
     raise Exception("Missing Stability API key.")
 
@@ -19,15 +20,25 @@ response = requests.post(
         "Authorization": f"Bearer {api_key}"
     },
     files={
-        "init_image": open("./base_images/oldpalacestability.png", "rb")
+        "init_image": open("./base_images/coffecup.png", "rb")
     },
     data={
-        "image_strength": 0.4,
+        "image_strength": 0.30,
         "init_image_mode": "IMAGE_STRENGTH",
-        "text_prompts[0][text]": "frame the picture with flowers, nostalgic, yellow dominant, advertisement, leaflet",
+        "text_prompts[0][text]": f"""
+
+        {prompt},
+        Use the color {color} as background.
+
+        """,
+        "text_prompts[0][weight]": 1,
+        "text_prompts[1][text]": "out of frame, blurry, low resolution",
+        "text_prompts[1][weight]": -1,
         "cfg_scale": 7,
         "samples": 1,
         "steps": 30,
+        "width": 1024,
+        "height": 1024,
     }
 )
 
@@ -39,3 +50,4 @@ data = response.json()
 for i, image in enumerate(data["artifacts"]):
     with open(f"./out/v1_img2img_{i}.png", "wb") as f:
         f.write(base64.b64decode(image["base64"]))
+
