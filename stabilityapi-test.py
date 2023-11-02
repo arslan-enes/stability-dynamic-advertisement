@@ -22,9 +22,9 @@ response = requests.post(
         "init_image": open("./base_images/oldpalacestability.png", "rb")
     },
     data={
-        "image_strength": 0.35,
+        "image_strength": 0.4,
         "init_image_mode": "IMAGE_STRENGTH",
-        "text_prompts[0][text]": "covered with flowers, nostalgic, postal card, #D6D46D dominant",
+        "text_prompts[0][text]": "frame the picture with flowers, nostalgic, yellow dominant, advertisement, leaflet",
         "cfg_scale": 7,
         "samples": 1,
         "steps": 30,
