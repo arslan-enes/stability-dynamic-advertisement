@@ -1,4 +1,6 @@
 # Generate Advertisement Images
+[![Docker - Image](https://img.shields.io/static/v1?label=Docker&message=Image&color=2ea44f&logo=Docker)](https://hub.docker.com/repository/docker/enesarslan/ad_generate_api/general)
+[![Fastapi](https://img.shields.io/static/v1?label=FastAPI&message=Docs&color=2ea44f&logo=fastapi)](#)
 
 Generate cool images for your advertisement campaign. You can make a creative touch to your product and also combine it with your brand logo. Examples are given below for you to get inspired, then you can use the API to generate your own. Enjoy!   
 
@@ -8,7 +10,6 @@ Generate cool images for your advertisement campaign. You can make a creative to
 - **Image Editing and Manipulation**: PIL
 - **API**: FastAPI
 - **Deployment**: Docker and Google Cloud Run
-- **Python 3.9**
 
 ## Examples
 ### Example 1 - Sneakers
@@ -41,9 +42,3 @@ logo | ![Example 2](logos/Untitled.jpeg) | Logo for the brand
 ### Output
 
 ![Example 3](outputs/diademuertos.png)
-
-
-```
-pip install pipreqs
-pipreqs /path/to/project
-```
