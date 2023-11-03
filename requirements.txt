@@ -1,4 +1,4 @@
-diffusers==0.21.4
+fastapi==0.104.1
+Pillow==10.1.0
 python-dotenv==1.0.0
 Requests==2.31.0
-torch==2.1.0

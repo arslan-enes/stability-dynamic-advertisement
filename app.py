@@ -9,7 +9,7 @@ import base64
 app = FastAPI()
 
 @app.post("/generate_advertisement/")
-async def create_advertisement(
+async def generate_advertisement(
                             prompt: str,
                             base_image: UploadFile = File(...),
                             color: str = "#4F6F52",
@@ -18,23 +18,23 @@ async def create_advertisement(
                             company_logo: UploadFile = File(...),
 
                         ):
-
     
     file_name = base_image.filename
     file_content = await base_image.read()
-    img_base = generate_imgtoimg(prompt, color, file_content)
+    file_content = generate_imgtoimg(prompt, color, file_content)
+    base_image_content = base64.b64decode(file_content)
 
-    with open(f"./{file_name}", "wb") as f:
-        f.write(base64.b64decode(img_base))
 
     file_name = company_logo.filename
-    file_content = await company_logo.read()
+    logo_content = await company_logo.read()
 
-    with open(f"./{file_name}", "wb") as f:
-        f.write(file_content)
 
-    new_image = edit_advertisement(base_image.filename, color, company_logo.filename, punchline, button_text)
-    
+    new_image = edit_advertisement(base_image=base_image_content,
+                                   color=color,
+                                   company_logo=logo_content, 
+                                   punchline= punchline, 
+                                   button_text=button_text)
+
     file_name = secrets.token_hex(8)
     new_image.save(f"./{file_name}.png")
 

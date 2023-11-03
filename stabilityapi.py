@@ -25,7 +25,7 @@ def generate_imgtoimg(prompt, color, base_image):
             "init_image": base_image,
         },
         data={
-            "image_strength": 0.30,
+            "image_strength": 0.27,
             "init_image_mode": "IMAGE_STRENGTH",
             "text_prompts[0][text]": f"""
 
