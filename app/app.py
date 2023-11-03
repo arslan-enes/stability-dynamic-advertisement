@@ -1,10 +1,12 @@
-from fastapi import FastAPI, HTTPException, File, UploadFile
-from fastapi.responses import StreamingResponse, FileResponse
-from image_edit import edit_advertisement
-from stabilityapi import generate_imgtoimg
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import StreamingResponse
+from app.image_edit import edit_advertisement
+from app.stabilityapi import generate_imgtoimg
+from io import BytesIO
 
 import secrets
 import base64
+
 
 app = FastAPI()
 
@@ -35,8 +37,11 @@ async def generate_advertisement(
                                    punchline= punchline, 
                                    button_text=button_text)
 
-    file_name = secrets.token_hex(8)
-    new_image.save(f"./{file_name}.png")
 
-    return FileResponse(f"./{file_name}.png", media_type="image/png")
+    img_bytes = BytesIO()
+    new_image.save(img_bytes, format='PNG')
+    img_bytes.seek(0)
+    
+    return StreamingResponse(content=img_bytes, media_type="image/png")
+
 

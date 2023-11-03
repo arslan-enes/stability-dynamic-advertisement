@@ -8,7 +8,7 @@ def _create_rectangle(image, x1, y1, x2, y2, color):
 
 def _create_text(image, x, y, text, size, color):
     draw = ImageDraw.Draw(image)
-    font = ImageFont.truetype("fonts/times.ttf", size)
+    font = ImageFont.truetype("app/fonts/times.ttf", size)
     draw.text((x, y), text, fill=color, font=font)
 
 def edit_advertisement(base_image, color, company_logo, punchline, button_text):
@@ -43,6 +43,5 @@ def edit_advertisement(base_image, color, company_logo, punchline, button_text):
     _create_rectangle(new_image, 573, 1800, 573+1024, 2000, RECTANGLE_COLOR)
     _create_text(new_image, 593, 1850, BUTTON_TEXT, 80, PAGE_COLOR)
 
-    # new_image.save('pil_color.png')
 
     return new_image

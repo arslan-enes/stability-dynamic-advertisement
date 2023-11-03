@@ -1,9 +1,6 @@
 import base64
 import os
 import requests
-from dotenv import load_dotenv
-
-load_dotenv()
 
 def generate_imgtoimg(prompt, color, base_image):
 
